@@ -3,29 +3,22 @@ version: "3.8"
 services:
   app:
     user: "${USER_ID:-1000}"
-    hostname: "${HOST_NAME:-emkademy}"
-    image: cybulde-template
+    hostname: "${HOST_NAME:-abdul}"
+    image: cybulde-data
     platform: linux/amd64
-    container_name: cybulde-template-container
+    container_name: cybulde-data-container
     build:
       context: .
       dockerfile: ./docker/Dockerfile
       args:
-        USER_NAME: "${USER_NAME:-kyuksel}"
+        USER_NAME: "${USER_NAME:-abdul}"
         USER_ID: "${USER_ID:-1000}"
     volumes:
       - ./:/app/
-      - ~/.config/gcloud/:/home/${USER_NAME:-kyuksel}/.config/gcloud
+      - ~/.config/gcloud/:/home/${USER_NAME}/.config/gcloud
+      - ~/.ssh:/home/${USER_NAME}/.ssh
     ports:
-      - 8080:8080
-
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+      - 8888:8888
     ipc: host
     init: true
 
